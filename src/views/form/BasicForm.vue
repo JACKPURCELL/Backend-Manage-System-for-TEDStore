@@ -97,7 +97,7 @@
       <a-form-item
         label="_keyServerIP"
         :labelCol="{lg: {span: 7}, sm: {span: 7}}"
-        :wrapperCol="{lg: {span: 10}, sm: {span: 17} }">
+        :wrapperCol="{lg: {span: 7}, sm: {span: 17} }">
         <a-input
           v-decorator="[
             'keyServerIP',
@@ -159,7 +159,7 @@
       <a-form-item
         label="_storageServerIP"
         :labelCol="{lg: {span: 7}, sm: {span: 7}}"
-        :wrapperCol="{lg: {span: 10}, sm: {span: 17} }">
+        :wrapperCol="{lg: {span: 7}, sm: {span: 17} }">
         <a-input
           v-decorator="[
             'storageServerIP',
@@ -195,7 +195,7 @@
       <a-form-item
         label="_RecipeRootPath"
         :labelCol="{lg: {span: 7}, sm: {span: 7}}"
-        :wrapperCol="{lg: {span: 10}, sm: {span: 17} }">
+        :wrapperCol="{lg: {span: 7}, sm: {span: 17} }">
         <a-input
           v-decorator="[
             'RecipeRootPath',
@@ -205,7 +205,7 @@
       <a-form-item
         label="_containerRootPath"
         :labelCol="{lg: {span: 7}, sm: {span: 7}}"
-        :wrapperCol="{lg: {span: 10}, sm: {span: 17} }">
+        :wrapperCol="{lg: {span: 7}, sm: {span: 17} }">
         <a-input
           v-decorator="[
             'containerRootPath',
@@ -215,7 +215,7 @@
       <a-form-item
         label="_fp2ChunkDBName"
         :labelCol="{lg: {span: 7}, sm: {span: 7}}"
-        :wrapperCol="{lg: {span: 10}, sm: {span: 17} }">
+        :wrapperCol="{lg: {span: 7}, sm: {span: 17} }">
         <a-input
           v-decorator="[
             'fp2ChunkDBName',
@@ -225,7 +225,7 @@
       <a-form-item
         label="fp2MetaDBame"
         :labelCol="{lg: {span: 7}, sm: {span: 7}}"
-        :wrapperCol="{lg: {span: 10}, sm: {span: 17} }">
+        :wrapperCol="{lg: {span: 7}, sm: {span: 17} }">
         <a-input
           v-decorator="[
             'fp2MetaDBame',
@@ -237,7 +237,6 @@
         style="text-align: center"
       >
         <a-button htmlType="submit" type="primary">提交</a-button>
-        <a-button style="margin-left: 8px">保存</a-button>
       </a-form-item>
     </a-form>
   </a-card>
@@ -251,7 +250,7 @@ export default{
   name: 'BaseForm',
   data () {
     return {
-      description: '表单页用于向用户收集或验证信息，基础表单常见于数据项较少的表单场景。',
+      description: '请配置Server及Keymanager相关参数',
       chunkingType: '1',
       minChunkSize: 4096,
       avgChunkSize: 8192,
@@ -286,20 +285,54 @@ export default{
           // eslint-disable-next-line no-console
           console.log('Received values of form: ', value)
           console.log('Received values of form: ', value.keyServerIP)
-          var ChunkerConfig = []
-          ChunkerConfig.push(
-            { '_chunkingType': value.chunkingType },
-            { '_minChunkSize': value.minChunkSize },
-            { '_avgChunkSize': value.avgChunkSize },
-            { '_maxChunkSize': value.maxChunkSize },
-            { '_slidingWinSize': value.slidingWinSize },
-            { '_ReadSize': value.ReadSize })
+          if(value.chunkingType==='1'){
+            value.chunkingType=1
+          }else{
+            value.chunkingType=0
+          }
+          var ChunkerConfig = {
+             "_chunkingType": value.chunkingType,
+             "_minChunkSize": value.minChunkSize,
+             "_avgChunkSize": value.avgChunkSize,
+             "_maxChunkSize": value.maxChunkSize,
+             "_slidingWinSize": value.slidingWinSize,
+             "_ReadSize": value.ReadSize
+          }
+          var KeyServerConfig= {
+            "_keyBatchSize": value.keyBatchSize,
+            "_keyServerIP": value.keyServerIP,
+            "_keyServerPort": value.keyServerPort,
+            "_sketchTableWidth": value.sketchTableWidth,
+            "_optimalSolverComputeItemNumberThreshold": value.optimalSolverComputeItemNumberThreshold,
+            "_storageBlowPercent": value.storageBlowPercent
+          }
+          var SPConfig= {
+            "_storageServerIP": value.storageServerIP,
+            "_storageServerPort": value.storageServerPort,
+            "_maxContainerSize": value.maxContainerSize,
+            "_RecipeRootPath": value.RecipeRootPath,
+            "_containerRootPath": value.containerRootPath,
+            "_fp2ChunkDBName": value.fp2ChunkDBName,
+            "_fp2MetaDBame": value.fp2MetaDBame
+          }
+          var client= {
+            "_clientID": 1,
+            "_sendChunkBatchSize": 1000,
+            "_sendRecipeBatchSize": 100000,
+            "_sendShortHashMaskBitNumber": 12
+          }
+          var configjson={
+            "ChunkerConfig": ChunkerConfig,
+            "KeyServerConfig": KeyServerConfig,
+            "SPConfig": SPConfig,
+            "client":client
+          }
         }
-          console.log(ChunkerConfig)
+          console.log(configjson)
         axios({
             method:'post',
             url:'/form',
-            data:ChunkerConfig,
+            data:configjson,
             headers:{'Content-Type': 'application/json'},
         }).then((res)=>{
             console.log(res.data)

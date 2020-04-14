@@ -27,9 +27,14 @@ export const asyncRouterMap = [
           },
           // 外部链接
           {
-            path: 'https://www.baidu.com/',
+            path: 'http://120.76.58.39:19999/',
             name: 'Monitor',
-            meta: { title: '监控页（外部）', target: '_blank' }
+            meta: { title: '监控页（Server）', target: '_blank' }
+          },
+          {
+            path: 'http://47.113.125.86:19999/',
+            name: 'Monitor',
+            meta: { title: '监控页（KeyManager）', target: '_blank' }
           },
           {
             path: 'workplace',
@@ -57,7 +62,7 @@ export const asyncRouterMap = [
             path: '/form/base-form',
             name: 'BaseForm',
             component: () => import('@/views/form/BasicForm'),
-            meta: { title: '基础表单', keepAlive: true, permission: [ 'form' ] }
+            meta: { title: '配置页', keepAlive: true, permission: [ 'form' ] }
           },
           {
             path: '/form/step-form',

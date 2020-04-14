@@ -5,7 +5,7 @@ const info = (options) => {
   console.log('options', options)
   const userInfo = {
     'id': '4291d7da9005377ec9aec4a71ea837f',
-    'name': '天野远子',
+    'name': 'JACK PURCELL',
     'username': 'admin',
     'password': '',
     'avatar': '/avatar2.jpg',
@@ -397,11 +397,22 @@ const userNav = (options) => {
     },
     {
       'name': 'monitor',
-      'path': 'https://www.baidu.com/',
+      'path': 'http://120.76.58.39:19999/',
       'parentId': 1,
       'id': 3,
       'meta': {
-        'title': '监控页（外部）',
+        'title': '监控页（Server）',
+        'target': '_blank',
+        'show': true
+      }
+    },
+    {
+      'name': 'monitor',
+      'path': 'http://47.113.125.86:19999/',
+      'parentId': 1,
+      'id': 3,
+      'meta': {
+        'title': '监控页（KeyManager）',
         'target': '_blank',
         'show': true
       }
@@ -445,7 +456,7 @@ const userNav = (options) => {
       'parentId': 10,
       'id': 6,
       'meta': {
-        'title': '基础表单'
+        'title': '配置页'
       },
       'component': 'BasicForm'
     },
