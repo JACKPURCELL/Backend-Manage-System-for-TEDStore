@@ -236,12 +236,16 @@
         :wrapperCol="{ span: 24 }"
         style="text-align: center"
       >
-        <a-button htmlType="submit" type="primary">提交</a-button>
+        <a-button htmlType="submit" type="primary" @click="showModal">提交</a-button>
       </a-form-item>
     </a-form>
+    <a-modal title="提交成功！" v-model="visible" @ok="handleOk">
+      <p>你已成功提交配置信息</p>
+      <p>Server已重启</p>
+      <p>KeyManager已重启</p>
+    </a-modal>
   </a-card>
 </template>
-
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
 import { axios } from '@/utils/request'
@@ -270,13 +274,20 @@ export default{
       containerRootPath: 'Containers/',
       fp2ChunkDBName: 'db1',
       fp2MetaDBame: 'db2',
+      visible: false,
       // form
       form: this.$form.createForm(this)
 
     }
   },
   methods: {
-
+    showModal() {
+      this.visible = true;
+    },
+    handleOk(e) {
+      console.log(e);
+      this.visible = false;
+    },
     // handler
     handleSubmit (e) {
       e.preventDefault()
@@ -336,15 +347,8 @@ export default{
             headers:{'Content-Type': 'application/json'},
         }).then((res)=>{
             console.log(res.data)
+            showModal();
         })
-        // const fs = require('fs');
-        // var lperson=ChunkerConfig
-        // fs.writeFile("./ab.json",lperson,function(err){
-        //     if(err){
-        //         console.error(err);
-        //     }
-        //     console.log(person.data);
-        // });
 
       })
     }

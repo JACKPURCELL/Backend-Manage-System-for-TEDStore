@@ -22,8 +22,8 @@
     <a-row :gutter="18" type="flex" :style="{ marginTop: '24px' }">
       <a-col :xl="48" :lg="24" :md="24" :sm="24" :xs="24">
         <a-card :loading="loading" :bordered="false" title="KeyManager Monitor" :style="{ height: '100%' }">
-          <div style="width:1900px;height:800px;overflow:hidden;border:0px">
-            <div style="width:1900px;height:800px;margin:-137px -137px 0px 0px;">
+          <div style="width:1550px;height:800px;overflow:hidden;border:0px">
+            <div style="width:1550px;height:800px;margin:-137px -137px 0px 0px;">
               <iframe
                 src="http://47.113.125.86:19999/#menu_system_submenu_cpu;theme=white;update_always=true"
                 width="1550"
