@@ -349,7 +349,19 @@ export default{
             console.log(res.data)
             showModal();
         })
-
+        // axios({
+        //     method:'get',
+        //     url:'/login',
+        //     params:{
+        //       username: "qqq",
+        //       password:"abc",
+        //     },
+        //     // headers:{'Content-Type': 'application/json'},
+        // }).then((res)=>{
+        //     console.log("aaaaaa")
+        //     console.log(res)
+        //     showModal();
+        // })
       })
     }
   }
