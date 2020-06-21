@@ -9,7 +9,7 @@
           </a>
         </div>
         <div class="desc">
-          TED Store 是目前最优秀的企业存储系统
+          TED Store 是目前最优秀的个人存储系统
         </div>
       </div>
 
